@@ -1,0 +1,8 @@
+.default-img {
+    border-radius: 5px;
+    box-shadow: 0 0 5px #000;
+}
+
+.grid-item {
+    height: 100%;
+}

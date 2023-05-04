@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+    --main-bg: #040404;
+    --main-fg: #FBFEF9;
+    --main-focus: #7EA3CC;
+    --dash-main-bg: #1E1F28;
+    --dash-secondary-bg: #252531;
+    --dash-third-bg: #2C2C37;
+    --dash-error: #CB5456;
+    --dash-success: #57CC72;
+    --dash-fg: #DBDCF3;
+}
+
+body {
+    background-color: var(--main-bg);
+    color: var(--main-fg);
+    margin: 0;
+    /*noinspection CssUnknownTarget*/
+    background-image: url("bg2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Roboto', sans-serif;
+    min-height: 100vh;
+}
+
+.dark-button {
+    background-color: #255C99;
+}
+
+.my-1 {
+    margin: 0.5rem 0;
+}
+
+.p-1 {
+    padding: 0.5rem;
+}
+
+a {
+    color: var(--main-focus);
+}
