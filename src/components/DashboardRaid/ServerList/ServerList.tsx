@@ -33,10 +33,10 @@ function ServerList() {
     ]
     return (
         <Grid container spacing={2}>
-            <Grid item xs={12} sm={6} md={3} marginY={1}>
+            <Grid item xs={12} sm={6} lg={3} marginY={1}>
                 <InviteServer/>
             </Grid>
-            {servers.map(s => <Grid key={s.serverId + "-grid"} item xs={12} sm={6} md={3} marginY={1}>
+            {servers.map(s => <Grid key={s.serverId + "-grid"} item xs={12} sm={6} lg={3} marginY={1}>
                 <ServerEl serverId={s.serverId}
                           serverName={s.serverName}
                           serverIcon={s.serverIcon}
