@@ -12,18 +12,15 @@ function DashboardRaidServer() {
     if (id == null) return <Navigate to="/dashboard"/>
 
     return (
-        <>
+        <section className="dashboard-view">
             <Navbar/>
-            <section>
+
                 <Container maxWidth="xl">
                     <ServerInfo url="https://placehold.co/200x200" serverId="000011112222333" serverName="Dead destroyers" serverMembers={69}/>
                     <RaidTasks id={id}/>
                     <TaskList/>
                 </Container>
-            </section>
-
-        </>
-
+        </section>
     )
 }
 
