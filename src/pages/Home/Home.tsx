@@ -13,7 +13,7 @@ function Home() {
         <section className="presentation">
             <PresentationHeader fontSize="5rem"/>
             <h3>The most efficient and innovative Raid Bot.</h3>
-            <img src={botImage} alt="Bot image" width="500" style={{maxWidth: "95%", height: "auto"}}/>
+            <img src={botImage} alt="Bot" width="500" style={{maxWidth: "95%", height: "auto"}}/>
             <Container maxWidth="xs">
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={6}>

@@ -6,3 +6,17 @@
 .grid-item {
     height: 100%;
 }
+
+.dashboard {
+    background-color: var(--dash-secondary-bg);
+    box-shadow: 0 0 2px #000;
+    height: 100%;
+}
+
+.success-status {
+    color: var(--dash-error)
+}
+
+.error-status {
+    color: var(--dash-success);
+}

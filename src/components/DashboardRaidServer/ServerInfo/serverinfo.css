@@ -1,0 +1,14 @@
+.server-info h1 {
+    font-size: 2rem;
+    color: var(--dash-fg);
+    margin: 0;
+}
+
+.server-info h1, .server-info h4 {
+    text-transform: uppercase;
+    text-shadow: 0 0 5px #000;
+}
+
+.server-info h4 {
+    margin: 0.5rem 0;
+}

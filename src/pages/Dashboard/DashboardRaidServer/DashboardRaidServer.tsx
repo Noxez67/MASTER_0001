@@ -1,13 +1,27 @@
 import Navbar from "../../../components/Dashboard/Navbar/Navbar";
-import { useParams } from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
+import RaidTasks from "../../../components/DashboardRaidServer/RaidTasks/RaidTasks";
+import {Container} from "@mui/material";
+import TaskList from "../../../components/DashboardRaidServer/TaskList/TaskList";
+
+import "./dashboardraidserver.css";
+import ServerInfo from "../../../components/DashboardRaidServer/ServerInfo/ServerInfo";
 
 function DashboardRaidServer() {
     const {id} = useParams();
+    if (id == null) return <Navigate to="/dashboard"/>
 
     return (
         <>
             <Navbar/>
-            <h1>Dashboard Raid Server {id ?? "no id found"}</h1>
+            <section>
+                <Container maxWidth="xl">
+                    <ServerInfo url="https://placehold.co/200x200" serverId="000011112222333" serverName="Dead destroyers" serverMembers={69}/>
+                    <RaidTasks id={id}/>
+                    <TaskList/>
+                </Container>
+            </section>
+
         </>
 
     )
