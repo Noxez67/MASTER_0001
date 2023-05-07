@@ -1,22 +1,46 @@
 import {FormEvent, useState} from "react";
 import {Button, Container, TextField} from "@mui/material";
-import {Link} from "react-router-dom";
+import {Link, Navigate, useNavigate} from "react-router-dom";
+import PresentationHeader from "../Home/extra/PresentationHeader";
+import axios from "axios";
+import {AuthStatus} from "../../hooks/Auth";
 
+const {apiUrl} = require("../../config.json");
 
 function LoginPage() {
+    const {loggedIn, checkingStatus} = AuthStatus();
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-    const submitLogin = (e: FormEvent) => {
+    const submitLogin = async (e: FormEvent) => {
         e.preventDefault();
+        try {
+            const loginPost = await axios.post(`${apiUrl}/login`, {
+                user,
+                password
+            });
 
-        // fetch
+            setUser("");
+            setPassword("");
+
+            if (loginPost.status === 200 && loginPost.data && loginPost.data.token) {
+                localStorage.setItem("token", loginPost.data.token);
+                navigate("/dashboard");
+            } else {
+                alert(loginPost.data.msg ?? "Error");
+            }
+        } catch (e) {
+            alert("ERROR: " + e);
+        }
     }
 
-    return (
+    if (checkingStatus) return null;
+
+    return loggedIn ? <Navigate to="/"/> : (
         <main className="full-height-center">
             <Container maxWidth="xs" className="form-outer">
-                <h1>Login</h1>
+                <PresentationHeader fontSize="3rem" text="Login"/>
                 <form action="" className="form" onSubmit={submitLogin}>
 
                     <TextField margin="normal" id="user" label="User" variant="outlined" type="text"

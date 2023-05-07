@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+.server-info {
+    text-align: center;
+}
+
 .server-info h1, .server-info h4 {
     text-transform: uppercase;
     text-shadow: 0 0 5px #000;

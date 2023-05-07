@@ -1,18 +1,40 @@
 import {Button, Container, TextField} from "@mui/material";
 import "../../globalStyles/form.css";
 import {FormEvent, useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import PresentationHeader from "../Home/extra/PresentationHeader";
+import axios from "axios";
 
+const {apiUrl} = require("../../config.json");
 
 function RegisterPage() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const navigate = useNavigate();
 
-    const submitRegister = (e: FormEvent) => {
+    const submitRegister = async (e: FormEvent) => {
         e.preventDefault();
 
-        // fetch
+        try {
+            const registerPost = await axios.post(`${apiUrl}/register`, {
+                user,
+                password
+            });
+
+            setUser("");
+            setPassword("");
+            setPassword2("");
+
+            if (registerPost.status === 200 && registerPost.data && registerPost.data.token) {
+                localStorage.setItem("token", registerPost.data.token);
+                navigate("/dashboard");
+            } else {
+                alert(registerPost.data.msg ?? "Error");
+            }
+        } catch (e) {
+            alert("ERROR: " + e);
+        }
     }
 
     const passwordCondition = password.length > 0 && password2.length > 0 && password !== password2;
@@ -20,7 +42,7 @@ function RegisterPage() {
     return (
         <main className="full-height-center">
             <Container maxWidth="xs" className="form-outer">
-                <h1>REGISTER</h1>
+                <PresentationHeader fontSize="3rem" text="Register"/>
                 <form action="" className="form" onSubmit={submitRegister}>
 
                     <TextField margin="normal" id="user" label="User" variant="outlined" type="text"

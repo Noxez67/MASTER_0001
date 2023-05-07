@@ -1,10 +1,11 @@
 import Navbar from "../../../components/Dashboard/Navbar/Navbar";
+import ConfigForm from "../../../components/DashboardConfig/ConfigForm";
 
 function DashboardConfig() {
     return (
         <>
             <Navbar/>
-            <h1>Dashboard Config</h1>
+            <ConfigForm/>
         </>
     )
 }

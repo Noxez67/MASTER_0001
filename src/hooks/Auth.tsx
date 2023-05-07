@@ -11,7 +11,7 @@ export const AuthStatus = () => {
     const Auth = async () => {
         if (!isMounted.current) isMounted.current = false
 
-        const token = localStorage.getItem('userToken');
+        const token = localStorage.getItem('token');
 
         try {
             const validateToken = await axios.get(`${apiUrl}/auth`, {
@@ -22,7 +22,7 @@ export const AuthStatus = () => {
             if (validateToken.status === 200) setLoggedIn(true)
 
         } catch (e) {
-            localStorage.removeItem("userToken");
+            localStorage.removeItem("token");
         }
         setCheckingStatus(false);
     }

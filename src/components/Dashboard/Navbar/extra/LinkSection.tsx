@@ -8,7 +8,7 @@ function LinkSection() {
                     <Link to="/dashboard/raid">Raid</Link>
                 </li>
                 <li>
-                    <Link to="/dashboard/raidlist">Raid List</Link>
+                    <Link to="">Raid List</Link>
                 </li>
                 <li>
                     <Link to="/dashboard/config">Configuration</Link>

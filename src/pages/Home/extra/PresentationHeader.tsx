@@ -3,11 +3,12 @@ import "./fonts/NameSmile.otf";
 
 type presentationHeaderTypes = {
     fontSize: string;
+    text?: string;
 }
 
-function PresentationHeader({fontSize}: presentationHeaderTypes) {
+function PresentationHeader({fontSize, text}: presentationHeaderTypes) {
     return (
-        <h1 className="presentation-header" style={{fontSize: fontSize}}>RBOT</h1>
+        <h1 className="presentation-header" style={{fontSize: fontSize}}>{text ?? "RBOT"}</h1>
     )
 }
 

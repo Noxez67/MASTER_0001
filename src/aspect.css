@@ -3,6 +3,11 @@
     box-shadow: 0 0 5px #000;
 }
 
+.rounded-img {
+    border-radius: 50%;
+    box-shadow: 0 0 3px #000;
+}
+
 .grid-item {
     height: 100%;
 }
