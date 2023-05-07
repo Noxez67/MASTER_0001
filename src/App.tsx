@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {createBrowserRouter, createHashRouter, Navigate, RouterProvider} from "react-router-dom";
+import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home/Home";
 import LoginPage from "./pages/Login/LoginPage";
@@ -10,6 +10,7 @@ import DashboardConfig from "./pages/Dashboard/DashboardConfig/DashboardConfig";
 import {createTheme, ThemeProvider} from "@mui/material";
 import DashboardRaidServer from "./pages/Dashboard/DashboardRaidServer/DashboardRaidServer";
 import {socket, SocketContext} from './socket/socketManager';
+import AuthSystem from "./pages/AuthSystem/AuthSystem";
 
 const router = createBrowserRouter([
     {
@@ -57,6 +58,13 @@ const router = createBrowserRouter([
         element:
             <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
                 <DashboardRaidServer/>
+            </ProtectedRoute>
+    },
+    {
+        path: "dcauth",
+        element:
+            <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
+                <AuthSystem/>
             </ProtectedRoute>
     }
 ]);

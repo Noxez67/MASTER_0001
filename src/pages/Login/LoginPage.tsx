@@ -37,7 +37,7 @@ function LoginPage() {
 
     if (checkingStatus) return null;
 
-    return loggedIn ? <Navigate to="/"/> : (
+    return loggedIn ? <Navigate to="/dashboard"/> : (
         <main className="full-height-center">
             <Container maxWidth="xs" className="form-outer">
                 <PresentationHeader fontSize="3rem" text="Login"/>

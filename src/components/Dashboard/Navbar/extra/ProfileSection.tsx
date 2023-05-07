@@ -1,6 +1,6 @@
 import {IoNotificationsOutline} from "react-icons/io5";
 
-function ProfileSection() {
+function ProfileSection({userId, avatar}: {userId: string | undefined, avatar: string | undefined}) {
     return (
         <section className="profile-section">
             <IoNotificationsOutline size="30"/>
