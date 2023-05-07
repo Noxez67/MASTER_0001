@@ -9,7 +9,6 @@ function DashboardRaidList() {
     const [userToken, setUserToken] = useState<ITokenUser>();
     const handleClose = () => setOpen(false);
 
-
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -19,9 +18,10 @@ function DashboardRaidList() {
         setUserToken(tokenInfo);
         if (!tokenInfo || !tokenInfo.discordId) setOpen(true);
     }, []);
+
     return (
         <>
-            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId}/>
+            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId} userName={userToken?.user}/>
             <h1>Dashboard Raid List</h1>
             <LinkModal open={open} handleClose={handleClose}/>
         </>

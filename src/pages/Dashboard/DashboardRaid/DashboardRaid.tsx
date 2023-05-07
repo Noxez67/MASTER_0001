@@ -11,7 +11,6 @@ function DashboardRaid() {
     const [userToken, setUserToken] = useState<ITokenUser>();
     const handleClose = () => setOpen(false);
 
-
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -19,11 +18,13 @@ function DashboardRaid() {
 
         const tokenInfo: ITokenUser = jwt_decode(token);
         setUserToken(tokenInfo);
+        console.log(tokenInfo);
         if (!tokenInfo || !tokenInfo.discordId) setOpen(true);
     }, []);
+
     return (
         <>
-            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId}/>
+            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId} userName={userToken?.user}/>
             <Container maxWidth="xl">
                 <ServerList/>
             </Container>

@@ -31,7 +31,7 @@ function DashboardRaidServer() {
 
     return (
         <section className="dashboard-view">
-            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId}/>
+            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId} userName={userToken?.user}/>
 
             <Container maxWidth="xl">
                 <ServerInfo url="https://placehold.co/200x200" serverId="000011112222333" serverName="Dead destroyers"

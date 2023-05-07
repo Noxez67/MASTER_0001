@@ -10,7 +10,6 @@ function DashboardConfig() {
     const [userToken, setUserToken] = useState<ITokenUser>();
     const handleClose = () => setOpen(false);
 
-
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -20,9 +19,10 @@ function DashboardConfig() {
         setUserToken(tokenInfo);
         if (!tokenInfo || !tokenInfo.discordId) setOpen(true);
     }, []);
+
     return (
         <>
-            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId}/>
+            <Navbar avatar={userToken?.avatar} userId={userToken?.discordId} userName={userToken?.user}/>
             <ConfigForm/>
             <LinkModal open={open} handleClose={handleClose}/>
         </>
