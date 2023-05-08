@@ -1,8 +1,14 @@
+import RaidList from "../../../components/DashboardRaidList/RaidList/RaidList";
+import {Container} from "@mui/material";
+
 function DashboardRaidList() {
 
     return (
         <>
-            <h1>Dashboard Raid List</h1>
+            <Container maxWidth="lg" style={{textAlign: "center"}}>
+                <h1>RBOT TOP RAIDS</h1>
+                <RaidList/>
+            </Container>
         </>
     )
 }

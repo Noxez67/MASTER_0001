@@ -24,7 +24,7 @@ function ConfigForm() {
 
         const token = localStorage.getItem("token");
 
-        if (!token) return;
+        if (!token) return navigate("/login");
 
         const tokenInfo: ITokenUser = jwt_decode(token);
 
@@ -46,7 +46,7 @@ function ConfigForm() {
             if (req.status === 401) navigate("/login");
 
         } catch (e) {
-
+            navigate("/login");
         }
 
     }
@@ -55,7 +55,7 @@ function ConfigForm() {
 
         const token = localStorage.getItem("token");
 
-        if (!token) return;
+        if (!token) return navigate("/login");
 
         const tokenInfo: ITokenUser = jwt_decode(token);
 
@@ -77,7 +77,8 @@ function ConfigForm() {
                 setYoutubeUrl(youtubeUrl ?? "");
                 setDiscordUrl(discordUrl ?? "");
                 setImgLink(imgLink ?? "");
-            });
+            })
+            .catch(() => navigate("/login"));
 
     }, [navigate]);
 

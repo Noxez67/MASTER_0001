@@ -4,13 +4,15 @@ import {Link, Navigate, useNavigate} from "react-router-dom";
 import PresentationHeader from "../Home/extra/PresentationHeader";
 import axios from "axios";
 import {AuthStatus} from "../../hooks/Auth";
+import ReCAPTCHA from "react-google-recaptcha";
 
-const {apiUrl} = require("../../config.json");
+const {apiUrl, recaptcha} = require("../../config.json");
 
 function LoginPage() {
     const {loggedIn, checkingStatus} = AuthStatus();
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
+    const [captcha, setCaptcha] = useState("");
     const navigate = useNavigate();
 
     const submitLogin = async (e: FormEvent) => {
@@ -18,7 +20,8 @@ function LoginPage() {
         try {
             const loginPost = await axios.post(`${apiUrl}/login`, {
                 user,
-                password
+                password,
+                captcha
             });
 
             setUser("");
@@ -52,9 +55,16 @@ function LoginPage() {
                                placeholder="Password" value={password}
                                onChange={e => setPassword(e.currentTarget.value)}/>
 
+                    <ReCAPTCHA
+                        sitekey={recaptcha}
+                        onChange={(v) => setCaptcha(v ?? "")}
+                        theme="dark"
+                    />
+
                     <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}
                             color="success" type="submit" size="large"
                             disabled={password.length === 0 || user.length === 0}>Submit</Button>
+
                 </form>
                 <Link to="/register">Go to Register</Link>
             </Container>

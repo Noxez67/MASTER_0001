@@ -4,13 +4,16 @@ import {FormEvent, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import PresentationHeader from "../Home/extra/PresentationHeader";
 import axios from "axios";
+import ReCAPTCHA from "react-google-recaptcha";
 
-const {apiUrl} = require("../../config.json");
+const {apiUrl, recaptcha} = require("../../config.json");
+
 
 function RegisterPage() {
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
+    const [captcha, setCaptcha] = useState("");
     const navigate = useNavigate();
 
     const submitRegister = async (e: FormEvent) => {
@@ -19,7 +22,8 @@ function RegisterPage() {
         try {
             const registerPost = await axios.post(`${apiUrl}/register`, {
                 user,
-                password
+                password,
+                captcha
             });
 
             if (registerPost.status === 401) navigate("/login");
@@ -59,6 +63,12 @@ function RegisterPage() {
                                type="password"
                                placeholder="Repeat Password" error={passwordCondition}
                                value={password2} onChange={e => setPassword2(e.currentTarget.value)}/>
+
+                    <ReCAPTCHA
+                        sitekey={recaptcha}
+                        onChange={(v) => setCaptcha(v ?? "")}
+                        theme="dark"
+                    />
 
                     <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}
                             color="success" type="submit" size="large"

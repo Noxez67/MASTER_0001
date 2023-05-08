@@ -19,7 +19,8 @@ const router = createBrowserRouter([
     },
     {
         path: "login",
-        element: <LoginPage/>
+        element:
+            <LoginPage/>
     },
     {
         path: "register",
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         path: "dashboard",
         element:
             <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                    <Dashboard/>
+                <Dashboard/>
             </ProtectedRoute>
         ,
         children: [

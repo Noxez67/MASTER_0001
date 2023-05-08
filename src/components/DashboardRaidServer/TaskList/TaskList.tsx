@@ -86,7 +86,6 @@ function TaskList({serverId}: { serverId: string }) {
 
                     return params.value.includes("Failed") ? "success-status" : "error-status"
                 }}
-
             />
         </section>
     )

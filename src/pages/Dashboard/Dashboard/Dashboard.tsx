@@ -2,7 +2,7 @@ import Navbar from "../../../components/Dashboard/Navbar/Navbar";
 import {useEffect, useState} from "react";
 import ITokenUser from "../DashboardRaid/types/ITokenUser";
 import Server from "../../../components/DashboardRaid/ServerList/types/Server";
-import {Outlet, useOutletContext} from "react-router-dom";
+import {Outlet, useNavigate, useOutletContext} from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import LinkModal from "../../../components/Dashboard/LinkModal";
 import io, {Socket} from "socket.io-client";
@@ -19,6 +19,8 @@ function Dashboard() {
     const [servers, setServers] = useState<Server>();
     const [socket, setSocket] = useState<Socket>();
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         const newSocket: Socket = io(apiUrl, {
             extraHeaders: {
@@ -31,7 +33,7 @@ function Dashboard() {
 
         const token = localStorage.getItem("token");
 
-        if (!token) return;
+        if (!token) return navigate("/login");
 
         const tokenInfo: ITokenUser = jwt_decode(token);
         setUserToken(tokenInfo);
@@ -45,7 +47,7 @@ function Dashboard() {
             console.log("ERROR1: " + e)
         }
 
-    }, []);
+    }, [navigate]);
 
     return (
         <>

@@ -1,3 +1,4 @@
 {
-  "apiUrl": "http://localhost:3339"
+  "apiUrl": "http://localhost:3339",
+  "recaptcha": "6Lev-PElAAAAAKjr1M-JupjwFm5qvlzkuGlfAf-D"
 }
