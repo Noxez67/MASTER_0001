@@ -1,7 +1,7 @@
 export default interface Task {
+    id: number;
     action: string;
     targetName: string;
-    status: boolean;
-    date: Date;
-
+    status: string;
+    date: string;
 }

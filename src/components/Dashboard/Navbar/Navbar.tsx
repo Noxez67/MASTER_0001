@@ -5,7 +5,7 @@ import "./navbar.css";
 
 function Navbar({userId, avatar, userName}: {userId: string | undefined, avatar: string | undefined, userName: string | undefined}) {
     return (
-        <nav className="navbar-wrapper" style={{marginBottom: "0.5rem"}}>
+        <nav className="navbar-wrapper">
             <div className="dashboard-nav">
                 <LogoSection/>
                 <LinkSection/>

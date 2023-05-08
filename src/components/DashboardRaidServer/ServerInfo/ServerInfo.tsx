@@ -5,11 +5,9 @@ import "./serverinfo.css";
 type serverInfoTypes = {
     url: string;
     serverName: string;
-    serverId: string;
-    serverMembers: number;
 }
 
-function ServerInfo({url, serverName, serverId, serverMembers}: serverInfoTypes) {
+function ServerInfo({url, serverName}: serverInfoTypes) {
     return (
         <section className="server-info">
             <Container maxWidth="xs">

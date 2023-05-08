@@ -1,4 +1,7 @@
 import {DataGrid, GridCellParams, GridColDef} from '@mui/x-data-grid';
+import {useEffect, useState} from "react";
+import Task from "./types/Task";
+import {useServers} from "../../../pages/Dashboard/Dashboard/Dashboard";
 
 const columns: GridColDef[] = [
     {
@@ -33,108 +36,32 @@ const columns: GridColDef[] = [
     },
 ];
 
-const rows = [
-    {
-        id: 1,
-        action: "Ban",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "Taxalo#8998"
-    },
-    {
-        id: 2,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 3,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 4,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: false ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 5,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 6,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 7,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 8,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: false ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 9,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 10,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 1,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 12,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: false ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 13,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-    {
-        id: 14,
-        action: "ChannelDelete",
-        date: new Date().toLocaleString(),
-        status: true ? "Successful action" : "Failed action",
-        targetName: "raid-by-fast-destroyers"
-    },
-];
+function TaskList({serverId}: { serverId: string }) {
+    const {socket} = useServers();
+    const [rows, setRows] = useState<Task[]>([]);
+    const [id, setId] = useState(0);
 
-function TaskList() {
+    useEffect(() => {
+        if (socket == null) return;
+
+        socket.on("task", (guildId: string, action: string, targetName: string, status: string, date: Date) => {
+            if (guildId !== serverId) return;
+
+            const newTask: Task = {
+                id,
+                action,
+                targetName,
+                status,
+                date: new Date(date).toLocaleString()
+            }
+
+            setId(id + 1);
+            setRows([newTask, ...rows]);
+        });
+    }, [id, rows, serverId, socket]);
+
+    if (socket == null) return null;
+
     return (
         <section className="task-list">
             <DataGrid

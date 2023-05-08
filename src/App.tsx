@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react';
-import {createBrowserRouter, Navigate, RouterProvider} from "react-router-dom";
+import React from 'react';
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Home from "./pages/Home/Home";
 import LoginPage from "./pages/Login/LoginPage";
@@ -9,8 +9,8 @@ import DashboardRaidList from "./pages/Dashboard/DashboardRaidList/DashboardRaid
 import DashboardConfig from "./pages/Dashboard/DashboardConfig/DashboardConfig";
 import {createTheme, ThemeProvider} from "@mui/material";
 import DashboardRaidServer from "./pages/Dashboard/DashboardRaidServer/DashboardRaidServer";
-import {socket, SocketContext} from './socket/socketManager';
 import AuthSystem from "./pages/AuthSystem/AuthSystem";
+import Dashboard from "./pages/Dashboard/Dashboard/Dashboard";
 
 const router = createBrowserRouter([
     {
@@ -29,43 +29,45 @@ const router = createBrowserRouter([
         path: "dashboard",
         element:
             <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                <Navigate to="/dashboard/raid"/>
+                    <Dashboard/>
             </ProtectedRoute>
+        ,
+        children: [
+            {
+                path: "",
+                element:
+                    <DashboardRaid/>
+            },
+            {
+                path: "raid",
+                element:
+                    <DashboardRaid/>
+            },
+            {
+                path: "raidlist",
+                element:
+                    <DashboardRaidList/>
+            },
+            {
+                path: "config",
+                element:
+                    <DashboardConfig/>
+            },
+            {
+                path: "raid/:id",
+                element:
+                    <DashboardRaidServer/>
+            },
+        ]
     },
-    {
-        path: "dashboard/raid",
-        element:
-            <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                <DashboardRaid/>
-            </ProtectedRoute>
-    },
-    {
-        path: "dashboard/raidlist",
-        element:
-            <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                <DashboardRaidList/>
-            </ProtectedRoute>
-    },
-    {
-        path: "dashboard/config",
-        element:
-            <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                <DashboardConfig/>
-            </ProtectedRoute>
-    },
-    {
-        path: "dashboard/raid/:id",
-        element:
-            <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
-                <DashboardRaidServer/>
-            </ProtectedRoute>
-    },
+
     {
         path: "dcauth",
         element:
             <ProtectedRoute token={localStorage.getItem("token") ?? ""}>
                 <AuthSystem/>
             </ProtectedRoute>
+
     }
 ]);
 
@@ -77,16 +79,10 @@ const darkTheme = createTheme({
 
 function App() {
 
-    useEffect(() => {
-        socket.emit("join", "hola");
-    }, []);
-
     return (
-        <SocketContext.Provider value={socket}>
-            <ThemeProvider theme={darkTheme}>
-                <RouterProvider router={router}/>
-            </ThemeProvider>
-        </SocketContext.Provider>
+        <ThemeProvider theme={darkTheme}>
+            <RouterProvider router={router}/>
+        </ThemeProvider>
     );
 }
 

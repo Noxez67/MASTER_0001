@@ -19,6 +19,7 @@ export const AuthStatus = () => {
                     'Authorization': token
                 }
             });
+
             if (validateToken.status === 200) setLoggedIn(true)
 
         } catch (e) {

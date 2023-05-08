@@ -22,6 +22,8 @@ function RegisterPage() {
                 password
             });
 
+            if (registerPost.status === 401) navigate("/login");
+
             setUser("");
             setPassword("");
             setPassword2("");

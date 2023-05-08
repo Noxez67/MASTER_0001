@@ -24,6 +24,8 @@ function LoginPage() {
             setUser("");
             setPassword("");
 
+            if (loginPost.status === 401) navigate("/login");
+
             if (loginPost.status === 200 && loginPost.data && loginPost.data.token) {
                 localStorage.setItem("token", loginPost.data.token);
                 navigate("/dashboard");
