@@ -28,7 +28,7 @@ function LinkModal({open, handleClose}: {open: boolean, handleClose: any}) {
                 <h2>Your discord account is not linked.</h2>
                 <p>Click the following button to link it now.</p>
                 <Link
-                    to="https://discord.com/api/oauth2/authorize?client_id=1104888598165196800&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdcauth&response_type=code&scope=guilds%20identify">
+                    to="https://discord.com/api/oauth2/authorize?client_id=1104888598165196800&redirect_uri=https%3A%2F%2Frbot.ac%2Fdcauth&response_type=code&scope=identify%20guilds">
                     <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}
                             color="success" size="large">Link</Button>
                 </Link>
