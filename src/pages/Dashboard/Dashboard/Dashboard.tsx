@@ -16,7 +16,7 @@ function Dashboard() {
     const [userToken, setUserToken] = useState<ITokenUser>();
     const handleClose = () => setOpen(false);
 
-    const [servers, setServers] = useState<Server>();
+    const [servers, setServers] = useState<Server[]>();
     const [socket, setSocket] = useState<Socket>();
 
     const navigate = useNavigate();
@@ -40,19 +40,28 @@ function Dashboard() {
         if (!tokenInfo || !tokenInfo.discordId) setOpen(true);
 
         try {
-            newSocket.on("servers", (svs) => {
+            newSocket.on("servers", (svs: Server[]) => {
                 setServers(svs);
+            });
+
+            newSocket.on("server", (sv: Server) => {
+                if (servers) setServers([sv, ...servers]);
+                else setServers([sv]);
+            });
+
+            newSocket.on("leave", () => {
+                setOpen(true);
             });
         } catch (e) {
             console.log("ERROR1: " + e)
         }
 
-    }, [navigate]);
+    }, [navigate, servers]);
 
     return (
         <>
             <Navbar avatar={userToken?.avatar} userId={userToken?.discordId} userName={userToken?.user}/>
-                <Outlet context={{servers, socket}}/>
+            <Outlet context={{servers, socket}}/>
             <LinkModal open={open} handleClose={handleClose}/>
         </>
     )
