@@ -4,15 +4,21 @@ function LinkSection() {
     return (
         <section className="link-section">
             <ul>
-                <li>
-                    <Link to="/dashboard/raid">Raid</Link>
-                </li>
-                <li>
-                    <Link to="/dashboard/raidlist">Raid List</Link>
-                </li>
-                <li>
-                    <Link to="/dashboard/config">Configuration</Link>
-                </li>
+                <Link to="/dashboard/raid">
+                    <li>
+                        Raid
+                    </li>
+                </Link>
+                <Link to="/dashboard/raidlist">
+                    <li>
+                        Raid List
+                    </li>
+                </Link>
+                <Link to="/dashboard/config">
+                    <li>
+                        Configuration
+                    </li>
+                </Link>
             </ul>
         </section>
     )

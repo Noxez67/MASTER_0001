@@ -28,7 +28,7 @@
     box-shadow: 0 0 4px #111;
 }
 
-ul {
+.link-section ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -37,16 +37,21 @@ ul {
     width: 100%;
     font-size: 1.5rem;
     font-weight: bold;
+    height: 100%;
 }
 
-li {
-    margin: 0;
-}
-
-li a {
+.link-section a {
+    padding: 0 1rem;
+    height: 100%;
     text-decoration: none;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.25s ease-in-out;
 }
 
+.link-section a:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+}
 .profile-section {
     background-color: var(--dash-third-bg);
     border-radius: 50px 15px 15px 50px;

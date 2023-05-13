@@ -5,6 +5,7 @@ import axios from "axios";
 import ITokenUser from "../../pages/Dashboard/DashboardRaid/types/ITokenUser";
 import jwt_decode from "jwt-decode";
 import {useNavigate} from "react-router-dom";
+import SuccessModal from "./SuccessModal";
 
 const {apiUrl} = require("../../config.json");
 
@@ -16,6 +17,8 @@ function ConfigForm() {
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [discordUrl, setDiscordUrl] = useState("");
     const [imgLink, setImgLink] = useState("");
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
 
     const navigate = useNavigate();
 
@@ -44,6 +47,8 @@ function ConfigForm() {
             });
 
             if (req.status === 401) navigate("/login");
+
+            setOpen(true);
 
         } catch (e) {
             navigate("/login");
@@ -119,6 +124,7 @@ function ConfigForm() {
                 <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}
                         color="success" type="submit" size="large">Update</Button>
             </form>
+            <SuccessModal open={open} handleClose={handleClose}/>
         </Container>
     )
 }
