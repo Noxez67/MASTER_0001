@@ -16,9 +16,8 @@ function Dashboard() {
     const [userToken, setUserToken] = useState<ITokenUser>();
     const handleClose = () => setOpen(false);
 
-    const [servers, setServers] = useState<Server[]>();
+    const [servers, setServers] = useState<Server[]>([]);
     const [socket, setSocket] = useState<Socket>();
-
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -44,9 +43,8 @@ function Dashboard() {
                 setServers(svs);
             });
 
-            newSocket.on("server", (sv: Server) => {
-                if (servers) setServers([sv, ...servers]);
-                else setServers([sv]);
+            newSocket.on("newserver", (sv: Server) => {
+                setServers(s => [...s, sv]);
             });
 
             newSocket.on("leave", () => {
@@ -55,8 +53,7 @@ function Dashboard() {
         } catch (e) {
             console.log("ERROR1: " + e)
         }
-
-    }, [navigate, servers]);
+    }, []);
 
     return (
         <>
