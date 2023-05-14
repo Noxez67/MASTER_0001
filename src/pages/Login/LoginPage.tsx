@@ -1,14 +1,16 @@
-import {FormEvent, useState} from "react";
+import {FormEvent, useRef, useState} from "react";
 import {Button, Container, TextField} from "@mui/material";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import PresentationHeader from "../Home/extra/PresentationHeader";
-import axios, {AxiosError} from "axios";
+import axios from "axios";
 import {AuthStatus} from "../../hooks/Auth";
 import ReCAPTCHA from "react-google-recaptcha";
 
 const {apiUrl, recaptcha} = require("../../config.json");
 
 function LoginPage() {
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
     const {loggedIn, checkingStatus} = AuthStatus();
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
@@ -38,6 +40,7 @@ function LoginPage() {
         } catch (e) {
             if (axios.isAxiosError(e)) alert("ERROR: " + e.response?.data.message ?? "Contact an administrator if you think this is an error");
         }
+        recaptchaRef.current?.reset();
     }
 
     if (checkingStatus) return null;
@@ -59,6 +62,7 @@ function LoginPage() {
                         sitekey={recaptcha}
                         onChange={(v) => setCaptcha(v ?? "")}
                         theme="dark"
+                        ref={recaptchaRef}
                     />
 
                     <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}

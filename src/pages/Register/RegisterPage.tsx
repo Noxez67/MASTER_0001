@@ -1,6 +1,6 @@
 import {Button, Container, TextField} from "@mui/material";
 import "../../globalStyles/form.css";
-import {FormEvent, useState} from "react";
+import {FormEvent, useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import PresentationHeader from "../Home/extra/PresentationHeader";
 import axios from "axios";
@@ -10,6 +10,8 @@ const {apiUrl, recaptcha} = require("../../config.json");
 
 
 function RegisterPage() {
+    const recaptchaRef = useRef<ReCAPTCHA>(null);
+
     const [user, setUser] = useState("");
     const [password, setPassword] = useState("");
     const [password2, setPassword2] = useState("");
@@ -41,6 +43,8 @@ function RegisterPage() {
         } catch (e) {
             if (axios.isAxiosError(e)) alert("ERROR: " + e.response?.data.message ?? "Contact an administrator if you think this is an error");
         }
+
+        recaptchaRef.current?.reset();
     }
 
     const passwordCondition = password.length > 0 && password2.length > 0 && password !== password2;
@@ -68,6 +72,7 @@ function RegisterPage() {
                         sitekey={recaptcha}
                         onChange={(v) => setCaptcha(v ?? "")}
                         theme="dark"
+                        ref={recaptchaRef}
                     />
 
                     <Button variant="contained" style={{marginTop: "0.5rem", color: "#fff", fontWeight: "bold"}}
