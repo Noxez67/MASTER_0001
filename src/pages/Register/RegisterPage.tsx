@@ -39,7 +39,7 @@ function RegisterPage() {
                 alert(registerPost.data.msg ?? "Error");
             }
         } catch (e) {
-            alert("ERROR: " + e);
+            if (axios.isAxiosError(e)) alert("ERROR: " + e.response?.data.message ?? "Contact an administrator if you think this is an error");
         }
     }
 

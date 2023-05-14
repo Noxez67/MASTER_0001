@@ -2,7 +2,7 @@ import {FormEvent, useState} from "react";
 import {Button, Container, TextField} from "@mui/material";
 import {Link, Navigate, useNavigate} from "react-router-dom";
 import PresentationHeader from "../Home/extra/PresentationHeader";
-import axios from "axios";
+import axios, {AxiosError} from "axios";
 import {AuthStatus} from "../../hooks/Auth";
 import ReCAPTCHA from "react-google-recaptcha";
 
@@ -36,7 +36,7 @@ function LoginPage() {
                 alert(loginPost.data.msg ?? "Error");
             }
         } catch (e) {
-            alert("ERROR: " + e);
+            if (axios.isAxiosError(e)) alert("ERROR: " + e.response?.data.message ?? "Contact an administrator if you think this is an error");
         }
     }
 
