@@ -67,6 +67,16 @@
     border-radius: 50%;
 }
 
+.nd-link {
+    text-decoration: none;
+}
+
+@media (min-width: 1081px) {
+    .mobile-link-section {
+        display: none;
+    }
+}
+
 @media (max-width: 1080px) {
     .link-section {
         display: none;
