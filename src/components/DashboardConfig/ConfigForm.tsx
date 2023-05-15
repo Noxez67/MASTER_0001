@@ -89,7 +89,7 @@ function ConfigForm() {
 
     return (
         <Container maxWidth="md" className="form-outer">
-            <PresentationHeader fontSize="2.25rem" text="Customization"/>
+            <PresentationHeader fontSize="3rem" text="Customization"/>
             <form action="" className="form" onSubmit={submitCustomization}>
 
                 <TextField margin="normal" id="channelName" label="Channel Name" variant="outlined" type="text"

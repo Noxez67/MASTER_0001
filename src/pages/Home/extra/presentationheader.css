@@ -24,3 +24,9 @@
     src: local("NameSmile");
     src: url("./fonts/NameSmile.otf") format("truetype")
 }
+
+@media (max-width: 728px) {
+    h1.presentation-header{
+        font-size: 1.85rem !important;
+    }
+}
