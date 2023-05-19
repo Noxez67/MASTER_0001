@@ -6,6 +6,7 @@ import ITokenUser from "../../pages/Dashboard/DashboardRaid/types/ITokenUser";
 import jwt_decode from "jwt-decode";
 import {useNavigate} from "react-router-dom";
 import SuccessModal from "./SuccessModal";
+import BoostModal from "./BoostModal";
 
 const {apiUrl} = require("../../config.json");
 
@@ -17,8 +18,12 @@ function ConfigForm() {
     const [youtubeUrl, setYoutubeUrl] = useState("");
     const [discordUrl, setDiscordUrl] = useState("");
     const [imgLink, setImgLink] = useState("");
+
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
+
+    const [boostOpen, setBoostOpen] = useState(false);
+    const handleBoostClose = () => navigate("/dashboard");
 
     const navigate = useNavigate();
 
@@ -26,7 +31,6 @@ function ConfigForm() {
         e.preventDefault();
 
         const token = localStorage.getItem("token");
-
         if (!token) return navigate("/login");
 
         const tokenInfo: ITokenUser = jwt_decode(token);
@@ -59,7 +63,6 @@ function ConfigForm() {
     useEffect(() => {
 
         const token = localStorage.getItem("token");
-
         if (!token) return navigate("/login");
 
         const tokenInfo: ITokenUser = jwt_decode(token);
@@ -83,14 +86,19 @@ function ConfigForm() {
                 setDiscordUrl(discordUrl ?? "");
                 setImgLink(imgLink ?? "");
             })
-            .catch(() => navigate("/login"));
+            .catch((e) => {
+                console.log(e.response.status);
+                if (!axios.isAxiosError(e)) return navigate("/login");
+                if (e.response?.status === 404) setBoostOpen(true);
+                else navigate("/login");
+            });
 
     }, [navigate]);
 
     return (
         <Container maxWidth="md" className="form-outer">
             <PresentationHeader fontSize="3rem" text="Customization"/>
-            <form action="" className="form" onSubmit={submitCustomization}>
+            <form className="form" onSubmit={submitCustomization}>
 
                 <TextField margin="normal" id="channelName" label="Channel Name" variant="outlined" type="text"
                            placeholder="Channel Name" value={channelName}
@@ -125,6 +133,7 @@ function ConfigForm() {
                         color="success" type="submit" size="large">Update</Button>
             </form>
             <SuccessModal open={open} handleClose={handleClose}/>
+            <BoostModal open={boostOpen} handleClose={handleBoostClose}/>
         </Container>
     )
 }
