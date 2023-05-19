@@ -27,6 +27,8 @@ function InviteServer() {
                             color="success">Invite to Server</Button>
                 </Link>
                 <HtmlTooltip
+                    enterTouchDelay={100}
+                    leaveTouchDelay={5000}
                     style={{margin: "0.5rem"}}
                     title={
                         <Fragment>
